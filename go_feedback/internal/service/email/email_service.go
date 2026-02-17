@@ -52,9 +52,7 @@ func (e *EmailService) GenerateSignupEmailBody(setupURL string) (string, error) 
 }
 
 func (e *EmailService) SendSignupEmail(email string) error {
-	//setupURL := fmt.Sprintf("%s/%s?token=%s", passwordSetupBaseURL, email)
-	//setupURL := fmt.Sprint("myapp://mobile/index?email=%s", email)
-	setupURL := fmt.Sprint("exp://192.168.110.11:8081/--(home)/feedback", email)
+	setupURL := fmt.Sprint("exp://192.168.110.11:8081/--/enjoying", email)
 
 	body, err := e.GenerateSignupEmailBody(setupURL)
 	if err != nil {

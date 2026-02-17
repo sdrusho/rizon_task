@@ -30,11 +30,6 @@ func (h *RateLimitHandler) ValidateRateLimit(c *gin.Context) {
 		c.Next()
 		return
 	}
-	/*capacity := int64(3)
-	rate := time.Minute
-	clock := clock.New()
-	epsilon := 1e-9
-	window := config.NewSlidingWindow(capacity, rate, config.NewSlidingWindowInMemory(), clock, epsilon)*/
 	time, err := h.sl.Limit(c)
 	if err != nil {
 		errors.New("error limit exhausted")
