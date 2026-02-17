@@ -24,7 +24,6 @@ import (
 )
 
 func Start() error {
-	// Load auth service
 
 	// Load configuration
 	cfg := config.MustLoadConfig()
@@ -36,7 +35,6 @@ func Start() error {
 	defer db.Close()
 
 	// Initialize Email Service
-
 	emailService := email.NewEmailService(
 		cfg.EmailHost,
 		cfg.EmailPort,
