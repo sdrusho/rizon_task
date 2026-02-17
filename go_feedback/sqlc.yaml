@@ -1,0 +1,27 @@
+version: "2"
+sql:
+  - schema: "schema/user-feedback.sql"
+    queries: "internal/db/queries/user"
+    engine: "postgresql"
+    gen:
+      go:
+        package: "user"
+        out: "internal/db/generated/user"
+        rename:
+          user_rizon: "User"
+    rules:
+      - sqlc/db-prepare
+
+  - schema: "schema/user-feedback.sql"
+    queries: "internal/db/queries/feedback"
+    engine: "postgresql"
+    gen:
+      go:
+        package: "feedback"
+        out: "internal/db/generated/feedback"
+        rename:
+          feedback_rizon: "Feedback"
+    rules:
+      - sqlc/db-prepare
+
+

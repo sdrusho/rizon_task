@@ -1,0 +1,2 @@
+# BasicGo
+Basic go application

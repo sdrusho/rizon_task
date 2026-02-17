@@ -1,0 +1,214 @@
+basePath: /ms-feedback
+definitions:
+  healthcheckhandler.HealthCheckResponse:
+    properties:
+      checks:
+        additionalProperties: true
+        type: object
+      status:
+        example: ok
+        type: string
+      timestamp:
+        example: "2023-04-15T12:34:56Z"
+        type: string
+    type: object
+  model.Feedback:
+    properties:
+      comments:
+        type: string
+      createdAt:
+        type: string
+      id:
+        type: integer
+      isEnjoying:
+        type: boolean
+      isLeaveReview:
+        type: boolean
+      userId:
+        type: string
+    type: object
+  model.User:
+    properties:
+      createdAt:
+        type: string
+      deviceId:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      isDeleted:
+        type: boolean
+      name:
+        type: string
+      status:
+        type: string
+      userId:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: help to basic app
+  title: Basic go API for ms-feedback
+  version: "1.0"
+paths:
+  /ms-feedback/feedbacks:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.Feedback'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Feedback'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Post a new signup feedback
+      tags:
+      - feedback
+  /ms-feedback/healthcheck:
+    get:
+      consumes:
+      - application/json
+      description: Checks if the service is up and running by verifying database and
+        redis connections
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Service is healthy
+          schema:
+            $ref: '#/definitions/healthcheckhandler.HealthCheckResponse'
+        "503":
+          description: Service is unhealthy
+          schema:
+            $ref: '#/definitions/healthcheckhandler.HealthCheckResponse'
+      summary: Health check endpoint
+      tags:
+      - healthcheck
+  /ms-feedback/user-signup:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.User'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Post a new signup user
+      tags:
+      - users
+  /ms-feedback/users/{email}:
+    get:
+      parameters:
+      - description: User Email
+        in: path
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get a signup user by email
+      tags:
+      - users
+  /ms-feedback/users/{userId}:
+    get:
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get signup user by ID
+      tags:
+      - users
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: ms-feedback
+    type: apiKey
+swagger: "2.0"
