@@ -24,8 +24,7 @@ type TokenBody struct {
 }
 
 // CreateToken - Create a JWT access and refresh token from the UserName and roles passed
-// both tokens will be signed with the same signing key TODO: Need to read this from config or DB and it needs to be environment specific
-
+// both tokens will be signed with the same signing key
 func CreateToken(tokenKey string, tokenType, userId string, expTime time.Time) (string, error) {
 
 	hostName, _ := os.Hostname()

@@ -1,2 +1,2 @@
 # rizon_task
-feedback app with backe end
+feedback app with back end

@@ -44,8 +44,11 @@ func NewUserService(repo userrepo.UserRepository, cfg config.Config, feedbackSer
 }
 
 func (s *userServiceImpl) CreateUser(ctx context.Context, email string, name, deviceId *string) (model.User, error) {
-
-	createdUser, err := s.userRepo.CreateUser(ctx, email, *name, REQUESTED, deviceId)
+	nameString := ""
+	if name != nil {
+		nameString = *name
+	}
+	createdUser, err := s.userRepo.CreateUser(ctx, email, nameString, REQUESTED, deviceId)
 	if err != nil {
 		return model.User{}, fmt.Errorf("error creating user: %w", err)
 	}

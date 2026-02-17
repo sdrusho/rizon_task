@@ -3,6 +3,7 @@ package userrepo
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"fmt"
 	"log"
 	"ms-feedback/internal/db/generated/user"
@@ -30,7 +31,12 @@ func NewUserRepository(db *sql.DB) UserRepository {
 }
 
 func (r *userRepositoryImpl) CreateUser(ctx context.Context, email, name, status string, deviceId *string) (user.RizonDbUser, error) {
-	name = strings.TrimSpace(name)
+	trimString := strings.TrimSpace(email)
+	rUser, _ := r.queries.GetUserByEmail(ctx, trimString)
+	if rUser.ID != 0 {
+		return user.RizonDbUser{}, fmt.Errorf("email already exists")
+	}
+
 	email = strings.TrimSpace(email)
 
 	statusNullString := utils.StringToNullString(status)
@@ -53,8 +59,7 @@ func (r *userRepositoryImpl) CreateUser(ctx context.Context, email, name, status
 func (r *userRepositoryImpl) GetUserByEmail(ctx context.Context, email string) (model.User, error) {
 	foundUser, err := r.queries.GetUserByEmail(ctx, strings.TrimSpace(email))
 	if err != nil {
-		log.Printf("Get user by email %s, returned %v\n", email, err.Error())
-		return model.User{}, fmt.Errorf("database operation failed: %w", err)
+		return model.User{}, errors.New("database operation failed")
 	}
 	log.Printf("Found user %v\n", foundUser)
 	return model.ToUserFromEmailRow(foundUser), nil
