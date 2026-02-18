@@ -34,7 +34,7 @@ func (r *userRepositoryImpl) CreateUser(ctx context.Context, email, name, status
 	trimString := strings.TrimSpace(email)
 	rUser, _ := r.queries.GetUserByEmail(ctx, trimString)
 	if rUser.ID != 0 {
-		return user.RizonDbUser{}, fmt.Errorf("email already exists")
+		return user.RizonDbUser{}, fmt.Errorf("user already exists")
 	}
 
 	email = strings.TrimSpace(email)
@@ -57,7 +57,8 @@ func (r *userRepositoryImpl) CreateUser(ctx context.Context, email, name, status
 }
 
 func (r *userRepositoryImpl) GetUserByEmail(ctx context.Context, email string) (model.User, error) {
-	foundUser, err := r.queries.GetUserByEmail(ctx, strings.TrimSpace(email))
+	trimString := strings.TrimSpace(email)
+	foundUser, err := r.queries.GetUserByEmail(ctx, trimString)
 	if err != nil {
 		return model.User{}, errors.New("database operation failed")
 	}

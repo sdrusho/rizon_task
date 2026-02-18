@@ -9,7 +9,6 @@ import ThemedText from "../../components/ThemedText"
 import {router, useRouter} from 'expo-router'
 import {useUser} from "../../hooks/useUser";
 import {UserContext} from "../../contexts/UserContext";
-import feedback from "./feedback";
 
 
 

@@ -9,32 +9,31 @@ import {useUser} from "../hooks/useUser";
 
 export default function RootLayout() {
 
-    const theme =  Colors.light
-    const url = Linking.useURL();
-    const [userId,setUserId] = useState("")
-    useEffect(() => {
-        console.log('useEffect root:', url);
-        if (url) {
-            const valueFromUrl = url.split('id=');
-            const [urlLink, userId]= valueFromUrl;
-            console.log('App opened with URL from root:', userId);
-            setUserId(userId)
+  const theme =  Colors.light
+  const url = Linking.useURL();
+  const [userId,setUserId] = useState("")
+  useEffect(() => {
+    console.log('useEffect root:', url);
+    if (url) {
+      const valueFromUrl = url.split('id=');
+      const [urlLink, userId]= valueFromUrl;
+      console.log('App opened with URL from root:', userId);
+      setUserId(userId)
 
-        }
-    }, [url]);
+    }
+  }, [url]);
 
-    return (
+  return (
+    <UserProvider value={{userId}}>
+      <Stack screenOptions={{
+        headerStyle: {backgroundColor: theme.navBackground},
+        headerTintColor: theme.title,
+        headerShown: false,
+      }}>
+        <Stack.Screen name="(auth)"/>
+        <Stack.Screen name="(home)"/>
+      </Stack>
+    </UserProvider>
 
-        <UserProvider value={{userId}}>
-            <Stack screenOptions={{
-                headerStyle: {backgroundColor: theme.navBackground},
-                headerTintColor: theme.title,
-                headerShown: false,
-            }}>
-                <Stack.Screen name="(auth)"/>
-                <Stack.Screen name="(home)"/>
-            </Stack>
-        </UserProvider>
-
-    )
+  )
 }

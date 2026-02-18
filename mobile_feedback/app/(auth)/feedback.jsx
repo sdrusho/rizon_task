@@ -9,10 +9,7 @@ import {
 import Spacer from "../../components/Spacer"
 import ThemedText from "../../components/ThemedText"
 import ThemedView from "../../components/ThemedView"
-import {Link, useRouter} from 'expo-router'
-import ThemedLogo from "../../components/ThemedLogo";
-import ThemedTextInput from "../../components/ThemedTextInput";
-import ThemedButton from "../../components/ThemedButton";
+import { useRouter} from 'expo-router'
 import React, {useCallback, useContext, useMemo, useRef, useState} from "react";
 import {useUser} from "../../hooks/useUser";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';

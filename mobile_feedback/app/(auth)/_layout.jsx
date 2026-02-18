@@ -14,11 +14,8 @@ export default function AuthLayout() {
     useEffect(() => {
         console.log('useEffect auth:', url);
         if (url) {
-            console.log('App opened with URL auth layout:', url);
             const valueFromUrl = url.split('id=');
             const userIdFromUrl = valueFromUrl[1];
-            console.log('App opened with URL auth layout:', userIdFromUrl);
-
             login(userIdFromUrl);
         } else {
             // router.replace("/home")
@@ -34,10 +31,11 @@ export default function AuthLayout() {
                 headerShown: false,
             }}
         >
-            <Stack.Screen name="index"/>
+            <Stack.Screen name="start"/>
             <Stack.Screen name="enjoying"/>
             <Stack.Screen name="feedback"/>
             <Stack.Screen name="reviewing"/>
+
         </Stack>
 
 
