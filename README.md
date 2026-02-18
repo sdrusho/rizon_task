@@ -2,7 +2,7 @@
 feedback app with back end
 
 
-Back end Details
+# Back end Details
 
 Swagger is used for every api details documentation
 
@@ -22,7 +22,7 @@ Deep link is used for singup due to restriction for ip it will tested manually t
 Slack mock is used in a way only real client update can work everything , no need to change in service
 
 
-Mobile app details
+# Mobile app details
 
 Deep link is used for sign in and jwt token is used for feedback post request
 
