@@ -4,7 +4,6 @@ import { useRoute } from '@react-navigation/native';
 import * as Linking from "expo-linking";
 import {useEffect, useState} from "react";
 import { UserProvider } from "../contexts/UserContext"
-import {useUser} from "../hooks/useUser";
 
 
 export default function RootLayout() {
@@ -12,16 +11,25 @@ export default function RootLayout() {
   const theme =  Colors.light
   const url = Linking.useURL();
   const [userId,setUserId] = useState("")
+    const router = useRouter()
+
   useEffect(() => {
     console.log('useEffect root:', url);
     if (url) {
       const valueFromUrl = url.split('id=');
-      const [urlLink, userId]= valueFromUrl;
-      console.log('App opened with URL from root:', userId);
-      setUserId(userId)
-
+      const [urlLink, userId] = valueFromUrl;
+      if (typeof userId !== 'undefined') {
+        handleUrlLink(userId);
+        setUserId(userId);
+      }
     }
   }, [url]);
+
+    const handleUrlLink = ({ userId }) => {
+        if (!userId) {
+           router.replace("/home")
+        }
+    };
 
   return (
     <UserProvider value={{userId}}>
