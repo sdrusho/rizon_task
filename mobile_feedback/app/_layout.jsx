@@ -18,10 +18,10 @@ export default function RootLayout() {
     if (url) {
       const valueFromUrl = url.split('id=');
       const [urlLink, userId] = valueFromUrl;
-      if (typeof userId !== 'undefined') {
+      if (typeof userId === 'undefined') {
         handleUrlLink(userId);
-        setUserId(userId);
       }
+        setUserId(userId);
     }
   }, [url]);
 
