@@ -18,15 +18,15 @@ export default function RootLayout() {
     if (url) {
       const valueFromUrl = url.split('id=');
       const [urlLink, userId] = valueFromUrl;
-      if (typeof userId !== 'undefined') {
-        handleUrlLink(userId);
+      if (typeof userId === 'undefined') {
+        handleUrlLink(urlLink);
       }
         setUserId(userId);
     }
   }, [url]);
 
-    const handleUrlLink = ({ userId }) => {
-        if (!userId) {
+    const handleUrlLink = ({ urlLink }) => {
+        if (!urlLink) {
            router.replace("/home")
         }
     };
